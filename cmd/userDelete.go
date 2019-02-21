@@ -21,6 +21,7 @@ import (
 	"log"
 	"time"
 
+	"github.com/brainupdaters/drlm-cli/lib"
 	pb "github.com/brainupdaters/drlm-comm/drlmcomm"
 	"github.com/spf13/cobra"
 	"google.golang.org/grpc"
@@ -43,7 +44,7 @@ to quickly create a Cobra application.`,
 		fmt.Println("drlm-cli user delete called")
 		fmt.Println("User: " + user)
 
-		conn, err := grpc.Dial("localhost:50051", grpc.WithInsecure())
+		conn, err := grpc.Dial(lib.Config.Drlmcore.Server+":"+lib.Config.Drlmcore.Port, grpc.WithInsecure())
 		if err != nil {
 			log.Fatalf("did not connect: %v", err)
 		}

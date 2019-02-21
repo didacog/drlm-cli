@@ -20,6 +20,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/brainupdaters/drlm-cli/lib"
 	pb "github.com/brainupdaters/drlm-comm/drlmcomm"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
@@ -45,7 +46,7 @@ to quickly create a Cobra application.`,
 		fmt.Println("User: " + user)
 		fmt.Println("Password: " + pass)
 
-		conn, err := grpc.Dial("localhost:50051", grpc.WithInsecure())
+		conn, err := grpc.Dial(lib.Config.Drlmcore.Server+":"+lib.Config.Drlmcore.Port, grpc.WithInsecure())
 		if err != nil {
 			log.Fatal("did not connect: " + err.Error())
 		}
