@@ -63,10 +63,10 @@ to quickly create a Cobra application.`,
 }
 
 func init() {
-	// Here you will define your flags and configuration settings.
 	// This is a command related to user and is added to userCmd
 	userCmd.AddCommand(userDeleteCmd)
 
+	// Here you will define your flags and configuration settings.
 	// add User name flag and mark as required
 	userDeleteCmd.Flags().StringP("user", "u", "", "User name")
 	userDeleteCmd.MarkFlagRequired("user")

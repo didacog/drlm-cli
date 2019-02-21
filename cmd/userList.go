@@ -61,8 +61,8 @@ to quickly create a Cobra application.`,
 }
 
 func init() {
-	// Here you will define your flags and configuration settings.
 	// This is a command related to user and is added to userCmd
 	userCmd.AddCommand(userListCmd)
 
+	// Here you will define your flags and configuration settings.
 }

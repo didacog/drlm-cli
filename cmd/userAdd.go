@@ -18,10 +18,10 @@ package cmd
 import (
 	"context"
 	"fmt"
-	"log"
 	"time"
 
 	pb "github.com/brainupdaters/drlm-comm/drlmcomm"
+	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"google.golang.org/grpc"
 )
@@ -47,7 +47,7 @@ to quickly create a Cobra application.`,
 
 		conn, err := grpc.Dial("localhost:50051", grpc.WithInsecure())
 		if err != nil {
-			log.Fatalf("did not connect: %v", err)
+			log.Fatal("did not connect: " + err.Error())
 		}
 		defer conn.Close()
 
@@ -57,22 +57,21 @@ to quickly create a Cobra application.`,
 		defer cancel()
 		r, err := client.AddUser(ctx, &pb.UserRequest{User: user, Pass: pass})
 		if err != nil {
-			log.Fatalf("could not add user: %v", err)
+			log.Fatal("could not add user: " + err.Error())
 		}
 
-		log.Printf("Response DRLM-Core Server: %s", r.Message)
+		log.Info("Response DRLM-Core Server: " + r.Message)
 	},
 }
 
 func init() {
-	// Here you will define your flags and configuration settings.
 	// This is a command related to user and is added to userCmd
 	userCmd.AddCommand(userAddCmd)
 
+	// Here you will define your flags and configuration settings.
 	// add User name flag and mark as required
 	userAddCmd.Flags().StringP("user", "u", "", "User name")
 	userAddCmd.MarkFlagRequired("user")
-
 	// add Password flag
 	userAddCmd.Flags().StringP("pass", "p", "", "Password")
 }
