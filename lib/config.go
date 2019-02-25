@@ -17,6 +17,11 @@ type DrlmcliConfig struct {
 
 var Config *DrlmcliConfig
 
+func SetConfigDefaults() {
+	SetDrlmcoreConfigDefaults()
+	logger.SetLoggingConfigDefaults("drlm-cli")
+}
+
 func InitConfig(c string) {
 	if c != "" {
 		// Use config file from the flag.
@@ -34,6 +39,8 @@ func InitConfig(c string) {
 		viper.AddConfigPath(".")
 		viper.SetConfigName(".drlm-cli")
 	}
+
+	SetConfigDefaults()
 
 	// Enable environment variables
 	// ex.: DRLMCLI_DRLMCORE_PORT=8000

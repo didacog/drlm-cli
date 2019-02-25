@@ -15,4 +15,4 @@ port = "50051"
 #         panic ("I'm bailing.")     --> Calls panic() after logging        #
 #############################################################################
 level = "trace"
-file = "./go.log/drlm-cli.log"
+file = "./drlm-cli.log"
