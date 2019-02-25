@@ -1,7 +1,7 @@
 # drln-cli configuration file
 
 [drlmcore]
-server = "localhost"
+server = "alocalhost"
 port = "50051"
 
 [logging]

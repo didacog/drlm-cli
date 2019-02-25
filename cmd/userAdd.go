@@ -21,7 +21,7 @@ import (
 	"time"
 
 	"github.com/brainupdaters/drlm-cli/lib"
-	pb "github.com/brainupdaters/drlm-comm/drlmcomm"
+	pb "github.com/brainupdaters/drlm-common/comms"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"google.golang.org/grpc"

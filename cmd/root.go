@@ -20,7 +20,7 @@ import (
 	"os"
 
 	"github.com/brainupdaters/drlm-cli/lib"
-	"github.com/brainupdaters/drlm-comm/logger"
+	"github.com/brainupdaters/drlm-common/logger"
 	"github.com/spf13/cobra"
 )
 

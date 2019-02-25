@@ -22,7 +22,7 @@ import (
 	"time"
 
 	"github.com/brainupdaters/drlm-cli/lib"
-	pb "github.com/brainupdaters/drlm-comm/drlmcomm"
+	pb "github.com/brainupdaters/drlm-common/comms"
 	"github.com/spf13/cobra"
 	"google.golang.org/grpc"
 )
