@@ -2,7 +2,11 @@
 
 [drlmcore]
 server = "localhost"
+tls = false
+cert = "/tls/godev/godev.crt"
 port = "50051"
+user = "drlmadmin"
+password = "drlm3api"
 
 [logging]
 #############################################################################

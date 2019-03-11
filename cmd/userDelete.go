@@ -37,30 +37,7 @@ and usage of using your command. For example:
 Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		user := cmd.Flag("user").Value.String()
-		pass := ""
-
-		fmt.Println("drlm-cli user delete called")
-		fmt.Println("User: " + user)
-
-		conn, err := grpc.Dial(lib.Config.Drlmcore.Server+":"+lib.Config.Drlmcore.Port, grpc.WithInsecure())
-		if err != nil {
-			log.Fatalf("did not connect: %v", err)
-		}
-		defer conn.Close()
-
-		client := pb.NewDrlmApiClient(conn)
-
-		ctx, cancel := context.WithTimeout(context.Background(), time.Second)
-		defer cancel()
-		r, err := client.DelUser(ctx, &pb.UserRequest{User: user, Pass: pass})
-		if err != nil {
-			log.Fatalf("could not delete user: %v", err)
-		}
-
-		log.Printf("Response DRLM-Core Server: %s", r.Message)
-	},
+	Run: runUserDelete,
 }
 
 func init() {
@@ -71,4 +48,29 @@ func init() {
 	// add User name flag and mark as required
 	userDeleteCmd.Flags().StringP("user", "u", "", "User name")
 	userDeleteCmd.MarkFlagRequired("user")
+}
+
+func runUserDelete(cmd *cobra.Command, args []string) {
+	user := cmd.Flag("user").Value.String()
+	pass := ""
+
+	fmt.Println("drlm-cli user delete called")
+	fmt.Println("User: " + user)
+
+	conn, err := grpc.Dial(lib.Config.Drlmcore.Server+":"+lib.Config.Drlmcore.Port, grpc.WithInsecure())
+	if err != nil {
+		log.Fatalf("did not connect: %v", err)
+	}
+	defer conn.Close()
+
+	client := pb.NewDrlmApiClient(conn)
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+	r, err := client.DelUser(ctx, &pb.UserRequest{User: user, Pass: pass})
+	if err != nil {
+		log.Fatalf("could not delete user: %v", err)
+	}
+
+	log.Printf("Response DRLM-Core Server: %s", r.Message)
 }

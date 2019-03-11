@@ -64,5 +64,4 @@ func init() {
 func initConfig() {
 	lib.InitConfig(cfgFile)
 	logger.InitLogger(lib.Config.Logging)
-	fmt.Println("test----: ", os.Args[0])
 }

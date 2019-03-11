@@ -37,28 +37,7 @@ and usage of using your command. For example:
 Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		user := ""
-		pass := ""
-		fmt.Println("drlm-cli user list called")
-
-		conn, err := grpc.Dial(lib.Config.Drlmcore.Server+":"+lib.Config.Drlmcore.Port, grpc.WithInsecure())
-		if err != nil {
-			log.Fatalf("did not connect: %v", err)
-		}
-		defer conn.Close()
-
-		client := pb.NewDrlmApiClient(conn)
-
-		ctx, cancel := context.WithTimeout(context.Background(), time.Second)
-		defer cancel()
-		r, err := client.ListUser(ctx, &pb.UserRequest{User: user, Pass: pass})
-		if err != nil {
-			log.Fatalf("could not lists users: %v", err)
-		}
-
-		log.Printf("Response DRLM-Core Server: %s", r.Message)
-	},
+	Run: runUserList,
 }
 
 func init() {
@@ -66,4 +45,27 @@ func init() {
 	userCmd.AddCommand(userListCmd)
 
 	// Here you will define your flags and configuration settings.
+}
+
+func runUserList(cmd *cobra.Command, args []string) {
+	user := ""
+	pass := ""
+	fmt.Println("drlm-cli user list called")
+
+	conn, err := grpc.Dial(lib.Config.Drlmcore.Server+":"+lib.Config.Drlmcore.Port, grpc.WithInsecure())
+	if err != nil {
+		log.Fatalf("did not connect: %v", err)
+	}
+	defer conn.Close()
+
+	client := pb.NewDrlmApiClient(conn)
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+	r, err := client.ListUser(ctx, &pb.UserRequest{User: user, Pass: pass})
+	if err != nil {
+		log.Fatalf("could not lists users: %v", err)
+	}
+
+	log.Printf("Response DRLM-Core Server: %s", r.Message)
 }
