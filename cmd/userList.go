@@ -16,15 +16,8 @@
 package cmd
 
 import (
-	"context"
-	"fmt"
-	"log"
-	"time"
-
 	"github.com/brainupdaters/drlm-cli/lib"
-	pb "github.com/brainupdaters/drlm-common/comms"
 	"github.com/spf13/cobra"
-	"google.golang.org/grpc"
 )
 
 // userListCmd represents the userList command
@@ -48,24 +41,5 @@ func init() {
 }
 
 func runUserList(cmd *cobra.Command, args []string) {
-	user := ""
-	pass := ""
-	fmt.Println("drlm-cli user list called")
-
-	conn, err := grpc.Dial(lib.Config.Drlmcore.Server+":"+lib.Config.Drlmcore.Port, grpc.WithInsecure())
-	if err != nil {
-		log.Fatalf("did not connect: %v", err)
-	}
-	defer conn.Close()
-
-	client := pb.NewDrlmApiClient(conn)
-
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
-	defer cancel()
-	r, err := client.ListUser(ctx, &pb.UserRequest{User: user, Pass: pass})
-	if err != nil {
-		log.Fatalf("could not lists users: %v", err)
-	}
-
-	log.Printf("Response DRLM-Core Server: %s", r.Message)
+	lib.APIUserList()
 }

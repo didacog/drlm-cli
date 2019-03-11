@@ -84,7 +84,6 @@ func InitConnexion() {
 }
 
 func APIUserAdd(usr *User) {
-
 	InitConnexion()
 	defer conn.Close()
 	defer cancel()
@@ -95,4 +94,30 @@ func APIUserAdd(usr *User) {
 	}
 
 	log.Info("Response DRLM-Core Server: " + r.Message)
+}
+
+func APIUserDelete(usr *User) {
+	InitConnexion()
+	defer conn.Close()
+	defer cancel()
+
+	r, err := client.DelUser(ctx, &pb.UserRequest{User: usr.User, Pass: usr.Password})
+	if err != nil {
+		log.Fatalf("could not delete user: %v", err)
+	}
+
+	log.Printf("Response DRLM-Core Server: %s", r.Message)
+}
+
+func APIUserList(){
+	InitConnexion()
+	defer conn.Close()
+	defer cancel()
+
+	r, err := client.ListUser(ctx, &pb.UserRequest{User: "", Pass: ""})
+	if err != nil {
+		log.Fatalf("could not lists users: %v", err)
+	}
+
+	log.Printf("Response DRLM-Core Server: %s", r.Message)
 }

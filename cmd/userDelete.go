@@ -16,15 +16,8 @@
 package cmd
 
 import (
-	"context"
-	"fmt"
-	"log"
-	"time"
-
 	"github.com/brainupdaters/drlm-cli/lib"
-	pb "github.com/brainupdaters/drlm-common/comms"
 	"github.com/spf13/cobra"
-	"google.golang.org/grpc"
 )
 
 // userDeleteCmd represents the delete command
@@ -51,26 +44,6 @@ func init() {
 }
 
 func runUserDelete(cmd *cobra.Command, args []string) {
-	user := cmd.Flag("user").Value.String()
-	pass := ""
-
-	fmt.Println("drlm-cli user delete called")
-	fmt.Println("User: " + user)
-
-	conn, err := grpc.Dial(lib.Config.Drlmcore.Server+":"+lib.Config.Drlmcore.Port, grpc.WithInsecure())
-	if err != nil {
-		log.Fatalf("did not connect: %v", err)
-	}
-	defer conn.Close()
-
-	client := pb.NewDrlmApiClient(conn)
-
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
-	defer cancel()
-	r, err := client.DelUser(ctx, &pb.UserRequest{User: user, Pass: pass})
-	if err != nil {
-		log.Fatalf("could not delete user: %v", err)
-	}
-
-	log.Printf("Response DRLM-Core Server: %s", r.Message)
+	usr := lib.User{User: cmd.Flag("user").Value.String(), Password: ""}
+	lib.APIUserDelete(&usr)
 }
