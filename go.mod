@@ -22,6 +22,8 @@ require (
 	github.com/gorilla/mux v1.7.0 // indirect
 	github.com/gregjones/httpcache v0.0.0-20190212212710-3befbb6ad0cc // indirect
 	github.com/grpc-ecosystem/grpc-gateway v1.7.0 // indirect
+	github.com/jinzhu/gorm v1.9.2
+	github.com/jinzhu/inflection v0.0.0-20180308033659-04140366298a // indirect
 	github.com/kisielk/errcheck v1.2.0 // indirect
 	github.com/microcosm-cc/bluemonday v1.0.2 // indirect
 	github.com/mitchellh/go-homedir v1.1.0

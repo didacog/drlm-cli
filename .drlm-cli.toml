@@ -1,8 +1,8 @@
 # drln-cli configuration file
 
 [drlmcore]
-server = "localhost"
-tls = false
+server = "godev"
+tls = true
 cert = "/tls/godev/godev.crt"
 port = "50051"
 user = "drlmadmin"
